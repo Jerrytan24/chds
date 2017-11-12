@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+  <title>创行调查</title>
+</head>
+<style type="text/css">
+html{
+	width:100%;
+	height:100%;
+}
+body{
+	width:100%;
+	height:100%;
+}
+table{
+		position: fixed;
+    bottom: 10%;
+    left: 15%;
+    color: #FFFFFF;
+    background: #f593a4;
+    border: 1px solid #f593a4;
+    border-radius: 0.3em;
+    text-align: center;
+    width: 80%;
+    opacity: 0.7;
+}
+table td:first-of-type{
+	width:15%;
+	text-align: right;
+}
+table input,select{
+	 color: #000;
+	border:1px solid #CCC;
+	border-radius:0.3em;
+	width:95%;
+	margin:10px 0px;
+}
+table select{
+	border:1px solid #CCC;
+	border-radius:0.3em;
+	width:95%;
+	margin:10px 0px;
+}
+
+</style>
+
+<body style="background:url(img/bgimg2.jpg)  no-repeat;background-size:100% 100%;">
+	<table border="0" width="45%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>姓名:</td>
+			<td><input type="text" name="name" id="" value=""/></td>
+		</tr>
+		<tr>
+				<td><label>学校:</label></td>
+				<td><input type="text" name="school" id="" value=""/></td>
+		</tr>
+	</table>
+<script src="js/jquery-1.9.1.min.js"></script>
+<script>
+$(function(){
+	GetFormVal();
+})
+function GetFormVal(){
+	var name = $("input[name='name']");
+	var school = $("input[name='school']");
+	name.blur(function(){
+			var nameV = $(this).val();
+			var schoolV = school.val();
+			if(nameV!=""&&schoolV!="") window.location.href="detail.html";
+		
+	})
+	
+	school.blur(function(){
+			var schoolV = $(this).val();
+			var nameV = name.val();
+			if(nameV!=""&&schoolV!="") window.location.href="detail.html";
+	})
+	
+}
+</script>
+</body>
+</html>

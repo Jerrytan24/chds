@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+		<title></title>
+		<link rel="stylesheet" href="css/detatil.css" />
+	</head>
+	
+	<body>
+		<audio controls="controls" autoplay="autoplay" id = "audio"   style=" width:40%;right:0%;  z-index:10000;position: fixed;top:0px;">
+		  <source  id="music" src="img/Melt The Snow - Shayne Ward.mp3"type="audio/mpeg">
+		</audio>
+		<div id="main">
+			<div>
+				<p><span class="totleSpan"><span class="totleSpan1"></span>/10</span></p>
+			</div>
+			<div>
+				<dl>
+					<dt>
+						<h3 class="titleClass"></h3>
+					</dt>
+					<dd>
+						<h4>A.<button name="A" class="xuanxianClass"></button></h4>
+						<h4>B.<button name="B" class="xuanxianClass"></button></h4>
+						<h4>C.<button name="C" class="xuanxianClass"></button></h4>
+						<h4>D.<button name="D" class="xuanxianClass"></button></h4>
+					</dd>
+				</dl>
+			</div>
+		</div>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js" ></script>
+	<script>
+$(function(){
+	
+	var music = $("#music");
+	
+	music.attr("src","img/Melt The Snow - Shayne Ward.mp3");
+	
+	
+	window.countPageNum = 0;
+	initPage ();
+	window.pramPost={
+		"A" :0,
+		"B" :0,
+		"C" :0,
+		"D" :0
+	}
+	clickFn();
+})
+
+function initPage (){//方法 页面加载 重写shu据
+	
+	window.vadata =jsonObj();
+	appendValue(window.vadata);
+}
+function appendValue (data){
+	var countPageNum = window.countPageNum;
+	$(".titleClass").html(data[countPageNum].title);
+	$(".totleSpan1").html(countPageNum+1);
+	$(".xuanxianClass").each(function(index){
+		switch(index){
+		case 0:
+			$(this).html(data[countPageNum].A);
+		  break;
+		case 1:
+			$(this).html(data[countPageNum].B);
+		  break;
+	 	case 2:
+	 		$(this).html(data[countPageNum].C);
+		  break;
+		case 3:
+			$(this).html(data[countPageNum].D);
+		  break;
+		default:
+		}
+		
+	})
+	 window.countPageNum++;
+}
+function clickFn (countPageNum){
+	$(".xuanxianClass").click(function(){
+		var name = $(this).attr("name");
+		var data = window.vadata;
+		switch(name){
+		case "A":
+			window.pramPost["A"] +=1;
+		  break;
+		case "B":
+			window.pramPost["B"] +=1;
+		  break;
+	 	case "C":
+	 		window.pramPost["C"] +=1;
+		  break;
+		case "D":
+			window.pramPost["D"] +=1;
+		  break;
+		default:
+		}
+		window.countPageNum <10 ? appendValue(data) : endFn();//只有10道题
+		
+	})
+	
+}
+function endFn(){
+	
+	var count = window.pramPost["A"]*1+window.pramPost["B"]*2+window.pramPost["C"]*3+window.pramPost["D"]*4;
+	var	value = count/40*100;
+	console.log(value);
+	var StrSrc = 1;
+	if(value>0&&value<=10){
+		StrSrc = 1;
+	}else if(value>10&&value<=20){
+		StrSrc = 3;
+	}else if(value>20&&value<=30){
+		StrSrc = 4;
+	}else if(value>30&&value<=40){
+		StrSrc = 5;
+	}else if(value>40&&value<=50){
+		StrSrc = 6;
+	}else if(value>50&&value<=60){
+		StrSrc = 7;
+	}else if(value>60&&value<=70){
+		StrSrc = 8;
+	}else if(value>70&&value<=80){
+		StrSrc = 9;
+	}else if(value>80&&value<=100){
+		StrSrc = 10;
+	}else if(value>100){
+		StrSrc = 10;
+	}
+	
+	$("body").css("background" ,"url(img/jsimg/"+StrSrc+".gif)");
+	$("body").css("background-size" ,"100% 100%");
+	$("body").html('<img src="img/weweima.png" style="width:20%;position: fixed;bottom:5px;right:5px;"/>');
+}
+
+function jsonObj(){
+	
+	
+	return [ 
+   { 
+ 	"id" : "1", 
+ 	"title" : "1.你将邀请一些人与你一起去某村调研，在选人时，你最看重的标准是什么？" ,
+ 	"A" : "颜值" ,
+ 	"B" : "能力",
+ 	"C"	: "性格",
+ 	"D" : "能用商业的模式进行公益的人"
+   },{ 
+ 	"id" : "2", 
+ 	"title" : "2.在去往调研地点的车上，你更喜欢" ,
+ 	"A" : "思考如何利用调研的机会追到同行的ta" ,
+ 	"B" : "和大家兴高采烈的聊天并偷偷的关注着TA",
+ 	"C"	: "拿出手机默默查找周边美食 ",
+ 	"D" : "一个人思考项目瓶颈如何突破"
+   },
+   { 
+ 	"id" : "3", 
+ 	"title" : "3.下车后，你发现调研地点的道路十分泥泞，这时你会" ,
+ 	"A" : "主动提出背TA过去" ,
+ 	"B" : "背队长过去",
+ 	"C"	: "撒娇，让TA背你过去",
+ 	"D" : "向TA泼泥"
+   },{ 
+ 	"id" : "4", 
+ 	"title" : "4.终于快到调研地了，可这时你的队长和你心仪的队友同时掉进了受众家的鱼塘里，你会" ,
+ 	"A" : "毫不犹豫先救起心仪的队友先" ,
+ 	"B" : "毫不犹豫放弃他们，保护受众，抓紧时间继续调研",
+ 	"C"	: "毫不犹豫地进行现场头脑风暴，用社会创新的方式同时将他们救起",
+ 	"D" : "毫不犹豫的救起队长"
+   },{ 
+ 	"id" : "5", 
+ 	"title" : "5. 调研途中，你被告知必须与猪圈中的一头猪拥抱才能切实做到与受众共情，这时你会？" ,
+ 	"A" : "毫不犹豫，与猪拥抱" ,
+ 	"B" : "挑一头长得好看的猪，拥抱时轻舔它的耳朵",
+ 	"C"	: "挑选一只可爱的猪，与之一起拍表情包",
+ 	"D" : "毫不犹豫，抱起队长"
+   },{ 
+ 	"id" : "6", 
+ 	"title" : "6.测量完成后，天空由阴转雨，而你们一行3人（队长、心仪的TA、你自己）只有可供2人用的1把伞，你会如何处理？" ,
+ 	"A" : "和TA一起撑伞" ,
+ 	"B" : "给受众",
+ 	"C"	: "把伞丢掉",
+ 	"D" : "保护好队长"
+   },{ 
+ 	"id" : "7", 
+ 	"title" : "7.回到学校，你一直关注的ta提议去聚餐，并向你征求建议，这时你会" ,
+ 	"A" : "遣散他人，只邀TA与你共进晚餐" ,
+ 	"B" : "作出最大的妥协，大家一起吃鸳鸯锅",
+ 	"C"	: "犹豫片刻，向队长寻求意见",
+ 	"D" : "立刻拒绝，毕竟调研结束大家都需要休息"
+   },{ 
+ 	"id" : "8", 
+ 	"title" : "8.在不久后创行的party上，你认识了一个很有好感的TA，你会" ,
+ 	"A" : "送TA小花花" ,
+ 	"B" : "与TA谈项目",
+ 	"C"	: "让队长当你的媒人",
+ 	"D" : "依依不舍的多看几眼就离开"
+   },{ 
+ 	"id" : "9", 
+ 	"title" : "9.吃完晚饭，你送TA回到住处，对TA说：“晚安，祝你梦到_______”" ,
+ 	"A" : "我" ,
+ 	"B" : "我",
+ 	"C"	: "我",
+ 	"D" : "难不成你要我祝福你梦见队长么？"
+   },{ 
+ 	"id" : "10", 
+ 	"title" : "10.美好的一天结束了，你躺在床上，突然想吟诗一首，你想到的诗句是" ,
+ 	"A" : "天苍苍，野茫茫，风吹草低创行黄" ,
+ 	"B" : "今生若得伊相伴，不如一起申专案",
+ 	"C"	: "桃花潭水深千尺，带上汪伦加创行",
+ 	"D" : "孤山寺北贾亭西，小黄鸡在唧唧唧"
+   } 
+ ]
+}
+ 
+</script>
+	</body>
+</html>
